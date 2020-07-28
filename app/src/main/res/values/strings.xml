@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Running Health</string>
+    <string name="register">Register</string>
+    <string name="login">login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_have_an_account_login_here">Already have an account? Login here</string>
+    <string name="not_have_account_register_here">Not have account?</string>
+    <string name="logout">Logout</string>
+    <string name="forgot_password_recover">Forgot Password?</string>
+    <string name="login_with_google">LOGIN WITH GOOGLE</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="running">Running</string>
+    <string name="stat">Stat</string>
+    <string name="start">START</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="stop">STOP</string>
+    <string name="sensor">Sensor</string>
+</resources>

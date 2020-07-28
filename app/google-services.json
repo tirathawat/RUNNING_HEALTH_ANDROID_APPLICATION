@@ -1,0 +1,122 @@
+{
+  "project_info": {
+    "project_number": "31639942408",
+    "firebase_url": "https://running-health-kmutt.firebaseio.com",
+    "project_id": "running-health-kmutt",
+    "storage_bucket": "running-health-kmutt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31639942408:android:8040816a24d8c7df9228bd",
+        "android_client_info": {
+          "package_name": "com.example.cpe101"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "31639942408-i9f75g0haij8f987d2o7a4d7q2jjbkgj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cpe101",
+            "certificate_hash": "e16dd85cb0faa2eae2aba4028e92aa4fb6cf7f7f"
+          }
+        },
+        {
+          "client_id": "31639942408-cb5tjbcp6m6gb4gn0ibkks1s1qaj6ss8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB__LjOGDzQMS0kjMNs037w5w5nlhm8-Xk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "31639942408-cb5tjbcp6m6gb4gn0ibkks1s1qaj6ss8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31639942408:android:0b767dd2e92e0fd09228bd",
+        "android_client_info": {
+          "package_name": "com.example.runninghealth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "31639942408-1dcg3h2las26099hmg3cqntn30b807ca.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.runninghealth",
+            "certificate_hash": "e16dd85cb0faa2eae2aba4028e92aa4fb6cf7f7f"
+          }
+        },
+        {
+          "client_id": "31639942408-cb5tjbcp6m6gb4gn0ibkks1s1qaj6ss8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB__LjOGDzQMS0kjMNs037w5w5nlhm8-Xk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "31639942408-cb5tjbcp6m6gb4gn0ibkks1s1qaj6ss8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31639942408:android:83c8db45626cbe349228bd",
+        "android_client_info": {
+          "package_name": "com.example.runninghealthnsc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "31639942408-rnkt8j016ufq69ft76ig2tun7q0nomb5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.runninghealthnsc",
+            "certificate_hash": "e16dd85cb0faa2eae2aba4028e92aa4fb6cf7f7f"
+          }
+        },
+        {
+          "client_id": "31639942408-cb5tjbcp6m6gb4gn0ibkks1s1qaj6ss8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB__LjOGDzQMS0kjMNs037w5w5nlhm8-Xk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "31639942408-cb5tjbcp6m6gb4gn0ibkks1s1qaj6ss8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_running"
+        android:icon="@drawable/ic_run_black_24dp"
+        android:title="@string/running" />
+
+    <item
+        android:id="@+id/nav_sensor"
+        android:icon="@drawable/ic_default_sensor_white"
+        android:title="@string/sensor" />
+
+    <item
+        android:id="@+id/nav_stat"
+        android:icon="@drawable/ic_stat_24dp"
+        android:title="@string/stat" />
+
+</menu>
