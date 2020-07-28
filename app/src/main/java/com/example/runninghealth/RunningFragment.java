@@ -57,7 +57,10 @@ import static com.google.firebase.database.FirebaseDatabase.getInstance;
 
 public class RunningFragment extends Fragment {
 
+    //firebase user
     private FirebaseUser user;
+
+    //database reference
     private DatabaseReference databaseReference;
     private DatabaseReference mRefSensor_left, mRefSensor_right;
 
@@ -86,16 +89,6 @@ public class RunningFragment extends Fragment {
     private static final int IMAGE_PICK_GALLERY_CODE = 300;
     private static final int IMAGE_PICK_CAMERA_CODE = 400;
 
-    //count data
-    private int count_fore_left, count_mid_left, count_heel_left
-            ,count_fore_right, count_mid_right, count_heel_right;
-
-    private int count_over_left, count_under_left, count_over_right, count_under_right, count_neutral_left, count_neutral_right;
-
-    private double perfore_left, permid_left, perheel_left, perfore_right, permid_right, perheel_right
-            ,perover_left, perunder_left, perover_right, perunder_right,
-            perneutral_left, perneutral_right;
-
     //arrays of permission to be requested
     private String[] cameraPermissions;
     private String[] storagePermissions;
@@ -105,6 +98,34 @@ public class RunningFragment extends Fragment {
 
     //for checking profile or cover photo
     private String profileOrCoverPhoto;
+
+    //count data
+    private int count_fore_left;
+    private int count_mid_left;
+    private int count_heel_left;
+    private int count_fore_right;
+    private int count_mid_right;
+    private int count_heel_right;
+
+    private int count_over_left;
+    private int count_under_left;
+    private int count_over_right;
+    private int count_under_right;
+    private int count_neutral_left;
+    private int count_neutral_right;
+
+    private double perfore_left;
+    private double permid_left;
+    private double perheel_left;
+    private double perfore_right;
+    private double permid_right;
+    private double perheel_right;
+    private double perover_left;
+    private double perunder_left;
+    private double perover_right;
+    private double perunder_right;
+    private double perneutral_left;
+    private double perneutral_right;
 
     public RunningFragment() {
         //Required empty public constructor
@@ -118,7 +139,6 @@ public class RunningFragment extends Fragment {
         View  view = inflater.inflate(R.layout.fragment_running, container, false);
 
         //init firebase
-        //firebase
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         FirebaseDatabase firebaseDatabase = getInstance();
@@ -156,49 +176,52 @@ public class RunningFragment extends Fragment {
                 if (isChecked) {
                     // The toggle is enabled
 
+                    //get current time
                     formattedDate = df.format(c.getTime());
 
+                    //set initial count
                     count_fore_left = count_mid_left = count_heel_left
                             = count_fore_right = count_mid_right = count_heel_right
                             = count_over_left = count_under_left = count_over_right
                             = count_under_right = count_neutral_left = count_neutral_right =0;
 
 
-                    //sensor
+                    //sensor left listening
                     mRefSensor_left.addValueEventListener(new ValueEventListener() {
                         @SuppressLint("SetTextI18n")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            //get data from database
                             String sensor_left = ""+ dataSnapshot.child("sensor_left").getValue();
 
-                            if (sensor_left.equals(""+"22211")) {
+                            //count and show strike pattern
+                            if (Objects.equals(checkStrikePattern(sensor_left), "fore")){
                                 count_fore_left++;
-                                count_neutral_left++;
-                                arch_type_leftTv.setText("Neutral");
+                                count_fore_leftTv.setText(count_fore_left +" times");
                             }
-                            if (sensor_left.equals("22222")) {
+                            else if (Objects.equals(checkStrikePattern(sensor_left), "mid")) {
                                 count_mid_left++;
-                                count_neutral_left++;
-                                arch_type_leftTv.setText("Neutral");
+                                count_mid_leftTv.setText(count_mid_left +" times");
+
                             }
-                            if (sensor_left.equals("11112")) {
+                            else if (Objects.equals(checkStrikePattern(sensor_left), "heel")) {
                                 count_heel_left++;
+                                count_heel_leftTv.setText(count_heel_left +" times");
                             }
 
-                            if (sensor_left.equals("11212") || sensor_left.equals("11211")) {
+                            //count and show pronation
+                            if (Objects.equals(checkPronation(sensor_left, "left"), "over")) {
                                 arch_type_leftTv.setText("Over pronation");
                                 count_over_left++;
                             }
-                            if (sensor_left.equals("21122") || sensor_left.equals("21111")) {
+                            else if (Objects.equals(checkPronation(sensor_left, "left"), "under")) {
                                 arch_type_leftTv.setText("Under pronation");
                                 count_under_left++;
                             }
-
-
-                            count_fore_leftTv.setText(count_fore_left +" times");
-                            count_mid_leftTv.setText(count_mid_left +" times");
-                            count_heel_leftTv.setText(count_heel_left +" times");
-
+                            else if (Objects.equals(checkPronation(sensor_left, "left"), "neutral")) {
+                                count_neutral_left++;
+                                arch_type_leftTv.setText("Neutral");
+                            }
                         }
 
                         @Override
@@ -207,39 +230,41 @@ public class RunningFragment extends Fragment {
                         }
                     });
 
+                    //sensor right listening
                     mRefSensor_right.addValueEventListener(new ValueEventListener() {
                         @SuppressLint("SetTextI18n")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            //get data from database
                             String sensor_right = ""+ dataSnapshot.child("sensor_right").getValue();
 
-                            if (sensor_right.equals(""+"22211")) {
+                            //count and show strike pattern
+                            if (Objects.equals(checkStrikePattern(sensor_right), "fore")){
                                 count_fore_right++;
-                                count_neutral_right++;
-                                arch_type_rightTv.setText("Neutral");
+                                count_fore_rightTv.setText(count_fore_right +" times");
                             }
-                            if (sensor_right.equals("22222")) {
+                            else if (Objects.equals(checkStrikePattern(sensor_right), "mid")) {
                                 count_mid_right++;
-                                count_neutral_right++;
-                                arch_type_rightTv.setText("Neutral");
+                                count_mid_rightTv.setText(count_mid_right +" times");
                             }
-                            if (sensor_right.equals("11112")) {
+                            else if (Objects.equals(checkStrikePattern(sensor_right), "heel")) {
                                 count_heel_right++;
+                                count_heel_rightTv.setText(count_heel_right +" times");
                             }
 
-                            if (sensor_right.equals("21112") || sensor_right.equals("21111")) {
+                            //count and show pronation
+                            if (Objects.equals(checkPronation(sensor_right, "right"), "over")) {
                                 arch_type_rightTv.setText("Over pronation");
                                 count_over_right++;
                             }
-                            if (sensor_right.equals("11222") || sensor_right.equals("11211")) {
+                            else if (Objects.equals(checkPronation(sensor_right, "right"), "under")) {
                                 arch_type_rightTv.setText("Under pronation");
                                 count_under_right++;
                             }
-
-                            count_fore_rightTv.setText(count_fore_right +" times");
-                            count_mid_rightTv.setText(count_mid_right +" times");
-                            count_heel_rightTv.setText(count_heel_right +" times");
-
+                            else if (Objects.equals(checkPronation(sensor_right, "right"), "neutral")) {
+                                count_neutral_right++;
+                                arch_type_rightTv.setText("Neutral");
+                            }
                         }
 
                         @Override
@@ -249,8 +274,9 @@ public class RunningFragment extends Fragment {
                     });
                 }
                 else {
-                    CalculatePercent();
+                    calculateStat();
 
+                    //map stat to prepare to send to the database
                     Map<String, Object> running_stat = new HashMap<>();
                     running_stat.put("perfore_left", perfore_left);
                     running_stat.put("permid_left", permid_left);
@@ -268,13 +294,12 @@ public class RunningFragment extends Fragment {
                     // Add a new document with a generated ID
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+                    //save stat to database
                     db.collection(Objects.requireNonNull(user.getEmail()))
                             .document(formattedDate)
                             .set(running_stat);
 
-                    arch_type_rightTv.setText("Neutral");
-                    arch_type_leftTv.setText("Neutral");
-
+                    //reset and show count
                     count_fore_left = count_mid_left = count_heel_left
                             = count_fore_right = count_mid_right = count_heel_right = 0;
 
@@ -285,10 +310,14 @@ public class RunningFragment extends Fragment {
                     count_fore_rightTv.setText(count_fore_right +" times");
                     count_mid_rightTv.setText(count_mid_right +" times");
                     count_heel_rightTv.setText(count_heel_right +" times");
+
+                    arch_type_rightTv.setText("Neutral");
+                    arch_type_leftTv.setText("Neutral");
                 }
             }
         });
 
+        //Query database to show user profile
         Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -333,6 +362,50 @@ public class RunningFragment extends Fragment {
         });
 
         return view;
+    }
+
+    /**
+     * This function is used to check the strike pattern from sensor data in the database.
+     *
+     * The meaning of the value read from the sensor on database
+     *     22211 is fore foot strike
+     *     22222 is mid foot strike
+     *     11112 is heel strike
+     * @param data is sensor data in the database
+     * @return strike pattern
+     */
+    private String checkStrikePattern(String data) {
+        switch (data) {
+            case "22211":
+                return "fore";
+            case "22222":
+                return "mid";
+            case "11112":
+                return "heel";
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * This function is used to check the type of pronation from sensor data in the database.
+     *
+     * The meaning of the value read from the sensor on database
+     *     1.neutral pronation is 22211, 22222 or 11112
+     *     2.over pronation for left foot is 11212 or 11211
+     *     3.over pronation for right foot is 21112 or 21111
+     *     4.under pronation for left foot is 21122 or 21111
+     *     5.under pronation for right foot is 11222 or 11211
+     *
+     * @param data is sensor data in the database
+     * @param foot is which foot
+     * @return type of pronation
+     */
+    private String checkPronation(String data, String foot) {
+        if (data.equals("22211") || data.equals("22222") || data.equals("11112")) return "neutral";
+        else if(data.equals("11212") || data.equals("11211") && foot.equals("left") || data.equals("21112")) return "over";
+        else if (data.equals("21122") || data.equals("21111") && foot.equals("left") || data.equals("11222")) return "under";
+        else return null;
     }
 
     private boolean checkStoragePermissions(){
@@ -652,7 +725,10 @@ public class RunningFragment extends Fragment {
         startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
     }
 
-    private void CalculatePercent() {
+    private void calculateStat() {
+        ///calculate percentage foot strike
+
+        //right foot
         int total_right = count_fore_right + count_mid_right + count_heel_right;
         if (total_right == 0) {
             perfore_right = 0;
@@ -665,6 +741,7 @@ public class RunningFragment extends Fragment {
             permid_right = (double)count_mid_right / total_right * 100;
         }
 
+        //left foot
         int total_left = count_fore_left + count_mid_left + count_heel_left;
         if (total_left == 0) {
             perfore_left = 0;
@@ -677,7 +754,9 @@ public class RunningFragment extends Fragment {
             permid_left = (double)count_mid_left / total_left * 100;
         }
 
+        ///calculate percentage pronation
 
+        //left foot
         int total_arch_left = count_over_left + count_neutral_left + count_under_left;
         if (total_arch_left == 0) {
             perover_left = 0;
@@ -690,7 +769,7 @@ public class RunningFragment extends Fragment {
             perneutral_left = (double)count_neutral_left / total_arch_left * 100;
         }
 
-
+        //right foot
         int total_arch_right = count_over_right + count_neutral_right + count_under_right;
         if (total_arch_right == 0) {
             perover_right = 0;
@@ -700,7 +779,7 @@ public class RunningFragment extends Fragment {
         else {
             perover_right = (double)count_over_right / total_arch_right * 100;
             perunder_right = (double)count_under_right / total_arch_right * 100;
-            perneutral_right = (double)count_neutral_left / total_arch_right * 100;
+            perneutral_right = (double)count_neutral_right / total_arch_right * 100;
         }
     }
 }

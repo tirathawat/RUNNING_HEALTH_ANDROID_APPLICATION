@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //not have account textview click
+        //not have account textView click
         mNotHaveAccountTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //recover password textview click
+        //recover password textView click
         mRecoverPasswordTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
