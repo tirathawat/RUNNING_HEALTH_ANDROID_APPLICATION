@@ -11,7 +11,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mEmailEt.setError("Invalid Email");
                     mEmailEt.setFocusable(true);
                 }
-                else if (password.length() < 6 && password.length() > 0) {
+                else if (password.length() < 6) {
                     mPasswordEt.setError("Password length at least 6 characters");
                     mPasswordEt.setFocusable(true);
                 }
@@ -140,8 +139,14 @@ public class RegisterActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
 
                             //get user email and uid from auth
-                            String email = user.getEmail();
-                            String uid = user.getUid();
+                            String email = null;
+                            if (user != null) {
+                                email = user.getEmail();
+                            }
+                            String uid = null;
+                            if (user != null) {
+                                uid = user.getUid();
+                            }
 
                             //when user is registered store user info in firebase realtime database too
                             //using HashMap
@@ -160,10 +165,14 @@ public class RegisterActivity extends AppCompatActivity {
                             DatabaseReference reference = database.getReference("Users");
 
                             //put data within HashMap in database
-                            reference.child(uid).setValue(hashMap);
+                            if (uid != null) {
+                                reference.child(uid).setValue(hashMap);
+                            }
 
-                            Toast.makeText(RegisterActivity.this, "Registered...\n"+user.getEmail(),
-                                    Toast.LENGTH_SHORT).show();
+                            if (user != null) {
+                                Toast.makeText(RegisterActivity.this, "Registered...\n"+user.getEmail(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
                             startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
                             finish();
                         } else {

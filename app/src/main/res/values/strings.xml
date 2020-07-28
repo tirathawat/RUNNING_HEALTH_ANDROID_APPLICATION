@@ -21,4 +21,8 @@
     <string name="edit_profile">Edit profile</string>
     <string name="stop">STOP</string>
     <string name="sensor">Sensor</string>
+    <string name="todo">TODO</string>
+    <string name="_0_times">0 times</string>
+    <string name="neutral">Neutral</string>
+    <string name="n_a">N/A</string>
 </resources>

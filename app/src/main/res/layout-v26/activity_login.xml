@@ -34,8 +34,7 @@
             android:textColorHint="@color/colorWhite"
             android:textColorLink="@color/colorWhite"
             android:textCursorDrawable="@drawable/color_cursor"
-            android:autofillHints=""
-            tools:targetApi="o" />
+            android:autofillHints="" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -71,8 +70,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.615"
-            android:autofillHints=""
-            tools:targetApi="o" />
+            android:autofillHints="" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

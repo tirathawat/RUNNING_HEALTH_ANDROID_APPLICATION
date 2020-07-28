@@ -1,6 +1,7 @@
 package com.example.runninghealth;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -11,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +40,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -51,41 +50,35 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 import static com.google.firebase.database.FirebaseDatabase.getInstance;
 
 public class RunningFragment extends Fragment {
 
-    //firebase
-    private FirebaseAuth firebaseAuth;
-    FirebaseUser user;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    DatabaseReference mRefSensor_left, mRefSensor_right;
+    private FirebaseUser user;
+    private DatabaseReference databaseReference;
+    private DatabaseReference mRefSensor_left, mRefSensor_right;
 
     //storage
-    StorageReference storageReference;
+    private StorageReference storageReference;
 
     //date and time
-    Calendar c = Calendar.getInstance();
-    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    String formattedDate;
-
-    //path where images of user profile and cover will be stored
-    String storagePath = "Users_Profile_Cover_Imgs/";
+    private Calendar c = Calendar.getInstance();
+    @SuppressLint("SimpleDateFormat")
+    private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private String formattedDate;
 
     //views form xml
-    ImageView avatarIv;
-    TextView nameTv, emailTv;
-    TextView count_fore_leftTv, count_mid_leftTv, count_heel_leftTv;
-    TextView count_fore_rightTv, count_mid_rightTv, count_heel_rightTv;
-    TextView arch_type_leftTv, arch_type_rightTv;
-    Button edit_profileBtn;
-    ToggleButton start_stopBtn;
+    private ImageView avatarIv;
+    private TextView nameTv, emailTv;
+    private TextView count_fore_leftTv, count_mid_leftTv, count_heel_leftTv;
+    private TextView count_fore_rightTv, count_mid_rightTv, count_heel_rightTv;
+    private TextView arch_type_leftTv, arch_type_rightTv;
 
     //progress dialog
-    ProgressDialog pd;
+    private ProgressDialog pd;
 
     //permissions constants
     private static final int CAMERA_REQUEST_CODE = 100;
@@ -94,24 +87,24 @@ public class RunningFragment extends Fragment {
     private static final int IMAGE_PICK_CAMERA_CODE = 400;
 
     //count data
-    int count_fore_left, count_mid_left, count_heel_left
+    private int count_fore_left, count_mid_left, count_heel_left
             ,count_fore_right, count_mid_right, count_heel_right;
 
-    int count_over_left, count_under_left, count_over_right, count_under_right, count_neutral_left, count_neutral_right;
+    private int count_over_left, count_under_left, count_over_right, count_under_right, count_neutral_left, count_neutral_right;
 
-    double perfore_left, permid_left, perheel_left, perfore_right, permid_right, perheel_right
+    private double perfore_left, permid_left, perheel_left, perfore_right, permid_right, perheel_right
             ,perover_left, perunder_left, perover_right, perunder_right,
             perneutral_left, perneutral_right;
 
     //arrays of permission to be requested
-    String[] cameraPermissions;
-    String[] storagePermissions;
+    private String[] cameraPermissions;
+    private String[] storagePermissions;
 
     //uri of picked image
-    Uri image_uri;
+    private Uri image_uri;
 
     //for checking profile or cover photo
-    String profileOrCoverPhoto;
+    private String profileOrCoverPhoto;
 
     public RunningFragment() {
         //Required empty public constructor
@@ -125,14 +118,14 @@ public class RunningFragment extends Fragment {
         View  view = inflater.inflate(R.layout.fragment_running, container, false);
 
         //init firebase
-        firebaseAuth = FirebaseAuth.getInstance();
+        //firebase
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-        firebaseDatabase = getInstance();
+        FirebaseDatabase firebaseDatabase = getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
         mRefSensor_left = firebaseDatabase.getReference("sensor_left");
         mRefSensor_right = firebaseDatabase.getReference("sensor_right");
         storageReference = FirebaseStorage.getInstance().getReference();
-        //final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         //init arrays of permissions
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -142,14 +135,14 @@ public class RunningFragment extends Fragment {
         avatarIv = view.findViewById(R.id.avatarIv);
         nameTv = view.findViewById(R.id.nameTv);
         emailTv = view.findViewById(R.id.emailTv);
-        edit_profileBtn = view.findViewById(R.id.edit_profileBtn);
+        Button edit_profileBtn = view.findViewById(R.id.edit_profileBtn);
         count_fore_leftTv = view.findViewById(R.id.count_fore_leftTv);
         count_mid_leftTv = view.findViewById(R.id.count_mid_leftTv);
         count_heel_leftTv = view.findViewById(R.id.count_heel_leftTv);
         count_fore_rightTv = view.findViewById(R.id.count_fore_rightTv);
         count_mid_rightTv = view.findViewById(R.id.count_mid_rightTv);
         count_heel_rightTv = view.findViewById(R.id.count_heel_rightTv);
-        start_stopBtn = view.findViewById(R.id.start_stopBtn);
+        ToggleButton start_stopBtn = view.findViewById(R.id.start_stopBtn);
         arch_type_leftTv = view.findViewById(R.id.arch_type_leftTv);
         arch_type_rightTv = view.findViewById(R.id.arch_type_rightTv);
 
@@ -158,6 +151,7 @@ public class RunningFragment extends Fragment {
 
         //handle start/stop ToggleButton clicks
         start_stopBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @SuppressLint("SetTextI18n")
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled
@@ -172,6 +166,7 @@ public class RunningFragment extends Fragment {
 
                     //sensor
                     mRefSensor_left.addValueEventListener(new ValueEventListener() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String sensor_left = ""+ dataSnapshot.child("sensor_left").getValue();
@@ -213,6 +208,7 @@ public class RunningFragment extends Fragment {
                     });
 
                     mRefSensor_right.addValueEventListener(new ValueEventListener() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String sensor_right = ""+ dataSnapshot.child("sensor_right").getValue();
@@ -272,7 +268,7 @@ public class RunningFragment extends Fragment {
                     // Add a new document with a generated ID
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                    db.collection(user.getEmail())
+                    db.collection(Objects.requireNonNull(user.getEmail()))
                             .document(formattedDate)
                             .set(running_stat);
 
@@ -340,9 +336,7 @@ public class RunningFragment extends Fragment {
     }
 
     private boolean checkStoragePermissions(){
-        boolean result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == (PackageManager.PERMISSION_GRANTED);
-        return result;
+        return ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
     }
 
     private void requestStoragePermission() {
@@ -351,7 +345,7 @@ public class RunningFragment extends Fragment {
     }
 
     private boolean checkCameraPermissions(){
-        boolean result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+        boolean result = ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.CAMERA)
                 == (PackageManager.PERMISSION_GRANTED);
 
         boolean result1 = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -510,6 +504,7 @@ public class RunningFragment extends Fragment {
 
     }
 
+    @SuppressLint("ShowToast")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         /*this method called when user press allow or deny from permission request dialog
@@ -556,7 +551,9 @@ public class RunningFragment extends Fragment {
         if (resultCode == RESULT_OK) {
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 //image is picked from gallery, get uri of image
-                image_uri = data.getData();
+                if (data != null) {
+                    image_uri = data.getData();
+                }
                 uploadProfileCoverPhoto(image_uri);
             }
             if (requestCode == IMAGE_PICK_CAMERA_CODE) {
@@ -573,7 +570,9 @@ public class RunningFragment extends Fragment {
 
 
         //path and name of image to be stored in firebase storage
-        String filePathAndName = storagePath+ ""+ profileOrCoverPhoto +"_"+ user.getUid();
+        //path where images of user profile and cover will be stored
+        String storagePath = "Users_Profile_Cover_Imgs/";
+        String filePathAndName = storagePath + ""+ profileOrCoverPhoto +"_"+ user.getUid();
 
         StorageReference storageReference2nd = storageReference.child(filePathAndName);
         storageReference2nd.putFile(uri)
@@ -582,7 +581,7 @@ public class RunningFragment extends Fragment {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         //image is uploaded to storage, now get it is uri and store in user is database
                         Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                        while (!uriTask.isSuccessful());
+
                         Uri downloadUri = uriTask.getResult();
 
                         //check if image is uploaded or not
@@ -590,7 +589,9 @@ public class RunningFragment extends Fragment {
                             //image uploaded
                             //add/update uri in user is database
                             HashMap<String, Object> results = new HashMap<>();
-                            results.put(profileOrCoverPhoto, downloadUri.toString());
+                            if (downloadUri != null) {
+                                results.put(profileOrCoverPhoto, downloadUri.toString());
+                            }
 
                             databaseReference.child(user.getUid()).updateChildren(results)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -636,7 +637,7 @@ public class RunningFragment extends Fragment {
             values.put(MediaStore.Images.Media.DESCRIPTION, "Temp Description");
 
             //put image uri
-            image_uri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            image_uri = Objects.requireNonNull(getActivity()).getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
             //intent to start camera
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

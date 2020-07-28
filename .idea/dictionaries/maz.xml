@@ -2,6 +2,10 @@
   <dictionary name="maz">
     <words>
       <w>firebase</w>
+      <w>foreleft</w>
+      <w>foremid</w>
+      <w>foreright</w>
+      <w>pronation</w>
     </words>
   </dictionary>
 </component>

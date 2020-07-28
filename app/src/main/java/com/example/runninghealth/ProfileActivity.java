@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
-import android.hardware.Sensor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +28,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         //actionbar and its title
         actionBar = getSupportActionBar();
-        actionBar.setTitle("");
+        if (actionBar != null) {
+            actionBar.setTitle("");
+        }
 
         //init
         firebaseAuth = FirebaseAuth.getInstance();
@@ -84,12 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         //get current user
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
-           //user is signed in stay here
-            //set email of logged in user
-        }
-        else {
-            //user not signed in, go to main activity
+        if (user == null) {
             startActivity(new Intent(ProfileActivity.this, MainActivity.class));
             finish();
         }

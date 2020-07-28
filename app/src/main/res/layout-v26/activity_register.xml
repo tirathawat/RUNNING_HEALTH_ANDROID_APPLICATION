@@ -24,8 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.422"
-        android:autofillHints=""
-        tools:targetApi="o" />
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/emailEt"
@@ -44,8 +43,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.517"
-        android:autofillHints=""
-        tools:targetApi="o" />
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/passwordEt"
@@ -64,8 +62,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.615"
-        android:autofillHints=""
-        tools:targetApi="o" />
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/confirm_passwordEt"
@@ -84,8 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.714"
-        android:autofillHints=""
-        tools:targetApi="o" />
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/registerBtn"

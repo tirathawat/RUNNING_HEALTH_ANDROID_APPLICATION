@@ -18,7 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.423"
-        app:srcCompat="@drawable/sensor" />
+        app:srcCompat="@drawable/sensor"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/foremid_leftIv"
@@ -31,7 +32,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.401"
-        app:srcCompat="@drawable/sensor" />
+        app:srcCompat="@drawable/sensor"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/foreleft_rightIv"
@@ -44,7 +46,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.423"
-        app:srcCompat="@drawable/sensor" />
+        app:srcCompat="@drawable/sensor"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/foreright_rightIv"
@@ -57,7 +60,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.453"
-        app:srcCompat="@drawable/sensor" />
+        app:srcCompat="@drawable/sensor"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/mid_rightIv"
@@ -70,7 +74,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.559"
-        app:srcCompat="@drawable/sensor" />
+        app:srcCompat="@drawable/sensor"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/heel_rightIv"
@@ -83,7 +88,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.683"
-        app:srcCompat="@drawable/sensor" />
+        app:srcCompat="@drawable/sensor"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/foremid_rightIv"
@@ -96,7 +102,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.401"
-        app:srcCompat="@drawable/sensor" />
+        app:srcCompat="@drawable/sensor"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/foreleft_leftIv"
@@ -109,7 +116,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.423"
-        app:srcCompat="@drawable/sensor" />
+        app:srcCompat="@drawable/sensor"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/mid_leftIv"
@@ -122,7 +130,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.559"
-        app:srcCompat="@drawable/sensor" />
+        app:srcCompat="@drawable/sensor"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/heel_leftIv"
@@ -135,7 +144,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.683"
-        app:srcCompat="@drawable/sensor" />
+        app:srcCompat="@drawable/sensor"
+        android:contentDescription="@string/todo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

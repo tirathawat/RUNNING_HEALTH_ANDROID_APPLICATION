@@ -3,7 +3,6 @@ package com.example.runninghealth;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -103,7 +102,9 @@ public class MainActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
+                if (account != null) {
+                    firebaseAuthWithGoogle(account);
+                }
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -123,11 +124,20 @@ public class MainActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
 
                             //if user is signing in first time then get and show user info from google account
-                            if (task.getResult().getAdditionalUserInfo().isNewUser()) {
+                            if (Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getAdditionalUserInfo()).isNewUser()) {
                                 //get user email and uid from auth
-                                String email = user.getEmail();
-                                String uid = user.getUid();
-                                String name = user.getDisplayName();
+                                String email = null;
+                                if (user != null) {
+                                    email = user.getEmail();
+                                }
+                                String uid = null;
+                                if (user != null) {
+                                    uid = user.getUid();
+                                }
+                                String name = null;
+                                if (user != null) {
+                                    name = user.getDisplayName();
+                                }
 
                                 //when user is registered store user info in firebase realtime database too
                                 //using HashMap
@@ -146,12 +156,16 @@ public class MainActivity extends AppCompatActivity {
                                 DatabaseReference reference = database.getReference("Users");
 
                                 //put data within HashMap in database
-                                reference.child(uid).setValue(hashMap);
+                                if (uid != null) {
+                                    reference.child(uid).setValue(hashMap);
+                                }
                             }
 
 
                             //show user email in toast
-                            Toast.makeText(MainActivity.this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();
+                            if (user != null) {
+                                Toast.makeText(MainActivity.this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();
+                            }
                             startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                             finish();
                         } else {
